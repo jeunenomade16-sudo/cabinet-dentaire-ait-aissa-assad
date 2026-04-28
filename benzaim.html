@@ -116,82 +116,50 @@
     /* ── HERO ── */
     .hero {
       min-height: 100svh;
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 4rem; align-items: center;
-      padding: calc(var(--nav-h) + 5rem) 6% 5rem;
+      display: flex; align-items: center;
+      padding: calc(var(--nav-h) + 4rem) 6% 5rem;
       position: relative; overflow: hidden;
+    }
+    .hero-bg-video {
+      position: absolute; inset: 0; z-index: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
     }
     .hero::before {
       content: '';
-      position: absolute; inset: 0;
-      background: radial-gradient(ellipse 65% 75% at 72% 50%,
-        rgba(29,78,95,.08) 0%, transparent 70%);
+      position: absolute; inset: 0; z-index: 1;
+      background: linear-gradient(
+        135deg,
+        rgba(12,26,31,.80) 0%,
+        rgba(12,26,31,.55) 55%,
+        rgba(12,26,31,.25) 100%
+      );
       pointer-events: none;
     }
     .hero-content {
-      max-width: 560px;
-    }
-
-    /* hero visual — video */
-    .hero-visual {
-      position: relative; height: 580px;
-      display: flex; align-items: center; justify-content: center;
-      animation: heroFadeRight .9s .3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-    }
-    .hv-video {
-      position: absolute; inset: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      border-radius: var(--r-lg);
-    }
-    .hv-name-card {
-      position: absolute; bottom: 1.5rem; left: 1.5rem; right: 1.5rem;
-      z-index: 2;
-      background: rgba(12,26,31,.72);
-      backdrop-filter: blur(14px);
-      border: 1px solid rgba(255,255,255,.15);
-      border-radius: var(--r);
-      padding: 1rem 1.4rem;
-      display: flex; align-items: center; gap: 1rem;
-    }
-    .hv-name-divider {
-      width: 3px; height: 38px; flex-shrink: 0;
-      background: var(--accent); border-radius: 2px;
-    }
-    .hv-name-text strong {
-      display: block;
-      font-family: var(--font-d);
-      font-size: 1.25rem; font-weight: 500;
-      color: #fff; letter-spacing: .02em;
-    }
-    .hv-name-text span {
-      font-size: .72rem; color: var(--accent-l);
-      letter-spacing: .12em; text-transform: uppercase;
-    }
-    @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-visual { display: none; }
+      position: relative; z-index: 2;
+      max-width: 700px;
     }
     .hero-label {
       display: flex; align-items: center; gap: .75rem;
       font-size: .68rem; font-weight: 600;
       letter-spacing: .22em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 1.5rem;
+      color: var(--accent-l); margin-bottom: 1.5rem;
     }
     .hero-label::before {
       content: ''; display: block;
-      width: 30px; height: 1.5px; background: var(--accent);
+      width: 30px; height: 1.5px; background: var(--accent-l);
     }
     .hero h1 {
       font-family: var(--font-d);
       font-size: clamp(3rem, 5vw, 5rem);
       font-weight: 600; line-height: 1.08;
-      color: var(--dark); margin-bottom: 1.5rem;
+      color: #fff; margin-bottom: 1.5rem;
     }
-    .hero h1 em { font-style: italic; color: var(--primary); }
+    .hero h1 em { font-style: italic; color: var(--accent-l); }
     .hero-desc {
       font-size: 1rem; line-height: 1.8;
-      color: var(--muted); margin-bottom: 2.5rem;
+      color: rgba(255,255,255,.75); margin-bottom: 2.5rem;
       max-width: 560px;
     }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
@@ -212,27 +180,27 @@
     }
     .btn-phone {
       display: inline-flex; align-items: center; gap: .5rem;
-      background: var(--surface); color: var(--primary);
-      border: 1.5px solid var(--border);
+      background: rgba(255,255,255,.12); color: #fff;
+      border: 1.5px solid rgba(255,255,255,.35);
       padding: .85rem 1.8rem; border-radius: 8px;
       font-size: .88rem; font-weight: 500;
       text-decoration: none;
-      transition: border-color .3s ease,
-                  transform .3s cubic-bezier(0.34, 1.56, 0.64, 1),
-                  box-shadow .3s ease;
+      transition: border-color .3s ease, background .3s ease,
+                  transform .3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      backdrop-filter: blur(6px);
     }
     .btn-phone:hover {
-      border-color: var(--primary);
+      border-color: #fff;
+      background: rgba(255,255,255,.22);
       transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(29,78,95,.12);
     }
     .hero-badge {
       display: flex; align-items: center; gap: .8rem;
       margin-top: 2rem;
     }
     .hero-badge-stars { color: #f5bc42; font-size: .95rem; letter-spacing: .06em; }
-    .hero-badge-text { font-size: .8rem; color: var(--muted); }
-    .hero-badge-text strong { color: var(--primary); }
+    .hero-badge-text { font-size: .8rem; color: rgba(255,255,255,.65); }
+    .hero-badge-text strong { color: #fff; }
 
     /* ── SHARED ── */
     section { padding: 6rem 6%; }
@@ -551,6 +519,9 @@
 
   <!-- HERO -->
   <section class="hero" id="home">
+    <video class="hero-bg-video" autoplay muted loop playsinline>
+      <source src="Vidéo_Générée_Sur_Demande.mp4" type="video/mp4">
+    </video>
     <div class="hero-content">
       <div class="hero-label">Cabinet Dentaire · Chéraga, Alger</div>
       <h1>Votre sourire,<br>notre <em>passion</em></h1>
@@ -571,19 +542,6 @@
       <div class="hero-badge">
         <div class="hero-badge-stars">★★★★★</div>
         <div class="hero-badge-text"><strong>4,7/5</strong> · Avis patients satisfaits</div>
-      </div>
-    </div>
-
-    <div class="hero-visual">
-      <video class="hv-video" autoplay muted loop playsinline>
-        <source src="Vidéo_Générée_Sur_Demande.mp4" type="video/mp4">
-      </video>
-      <div class="hv-name-card">
-        <div class="hv-name-divider"></div>
-        <div class="hv-name-text">
-          <strong>Dr. Ait aissa-Assad W.</strong>
-          <span>Chirurgien-Dentiste · Chéraga</span>
-        </div>
       </div>
     </div>
   </section>
